@@ -1,4 +1,47 @@
 """ User Interface (UI) module """
+#                             PRINTING TABLE FUNCTIONS
+
+#
+def get_max_width_column(table, table_list):
+    max_width = []
+    for column in range (len(table_list)):
+        temp_width = 0
+        for row in range (len(table)):
+            if len(str(table[row][column])) > temp_width:
+                temp_width = len(str(table[row][column]))
+    max_width.append(int(temp_width))
+    return max_width
+
+def get_total_width_table(max_width, table_list):
+    sum_width = len(table_list)*2
+    for i in range (len(max_width)):
+        sum_width += max_width[i]
+    return sum_width
+
+# prints middle part of table
+def print_middle_border(sum_width):
+    print('|', ('-'*(sum_width-3)), '|')
+
+def print_titles_in_colums(title_list, max_width):
+    for j in range(len(title_list)):
+        col = title_list[j]
+        width = max_width[j]
+        print('|', col.center(width),  end='')
+    print('|')
+
+def print_table_contents(table, max_width, sum_width, title_list):
+    row_number = 1
+    for row in table:
+        print_middle_border(sum_width)
+        for col_i in range(len(row)):
+            col = row[col_i]
+            width = max_width[col_i]
+            if col_i == 0:
+                print('|', str(row_number).center(width),  end='')
+            else:
+                print('|', col.center(width),  end='')
+        row_number += 1
+        print('|')
 
 
 def print_table(table, title_list):
@@ -22,7 +65,14 @@ def print_table(table, title_list):
         None: This function doesn't return anything it only prints to console.
     """
 
-    # your goes code
+    max_width_column = []
+    temp_table = table.copy()
+    temp_table.append(title_list)
+    max_width_column = get_max_width_column(temp_table, title_list)
+    sum_width = get_total_width_table(max_width_column, title_list)
+    print_titles_in_colums(title_list, max_width_column)
+    print_table_contents(table, max_width_column, sum_width, title_list)
+
 
 
 def print_result(result, label):
