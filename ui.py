@@ -87,7 +87,7 @@ def print_result(result, label):
         None: This function doesn't return anything it only prints to console.
     """
 
-    # your code
+    print ('{}{}'.format (result, label))
 
 
 def print_menu(title, list_options, exit_message):
@@ -111,7 +111,11 @@ def print_menu(title, list_options, exit_message):
         None: This function doesn't return anything it only prints to console.
     """
 
-    # your code
+    print(f"{title}:")
+    for item in range (len(list_options)):
+         print(f"     ({item+1}) {list_options[item]}")
+    print(f"     (0) {exit_message}")
+
 
 
 def get_inputs(list_labels, title):
@@ -135,8 +139,11 @@ def get_inputs(list_labels, title):
     """
     inputs = []
 
-    # your code
+    print(title)
+    for item in list_labels:
+        inputs.append(input(item))
 
+    os.system("clear")
     return inputs
 
 
@@ -151,4 +158,4 @@ def print_error_message(message):
         None: This function doesn't return anything it only prints to console.
     """
 
-    # your code
+    print('Error : {}'.format (message)) # your code
