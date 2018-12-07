@@ -1,7 +1,7 @@
 """ User Interface (UI) module """
 #                             PRINTING TABLE FUNCTIONS
 
-#
+# gets lenght of the longest word in column
 def get_max_width_column(table, table_list):
     max_width = []
     for column in range (len(table_list)):
@@ -12,16 +12,20 @@ def get_max_width_column(table, table_list):
     max_width.append(int(temp_width))
     return max_width
 
+
+#gets total width of a table, adding max widths of colums + spaces between them
 def get_total_width_table(max_width, table_list):
     sum_width = len(table_list)*2
     for i in range (len(max_width)):
         sum_width += max_width[i]
     return sum_width
 
-# prints middle part of table
+# prints separators in the middle part of table
 def print_middle_border(sum_width):
     print('|', ('-'*(sum_width-3)), '|')
 
+
+# prints title + separator in every column
 def print_titles_in_colums(title_list, max_width):
     for j in range(len(title_list)):
         col = title_list[j]
@@ -29,6 +33,7 @@ def print_titles_in_colums(title_list, max_width):
         print('|', col.center(width),  end='')
     print('|')
 
+# prints data and separators to the table
 def print_table_contents(table, max_width, sum_width, title_list):
     row_number = 1
     for row in table:
@@ -113,7 +118,7 @@ def print_menu(title, list_options, exit_message):
 
     print(f"{title}:")
     for item in range (len(list_options)):
-         print(f"     ({item+1}) {list_options[item]}")
+        print(f"     ({item+1}) {list_options[item]}")
     print(f"     (0) {exit_message}")
 
 
@@ -142,10 +147,7 @@ def get_inputs(list_labels, title):
     print(title)
     for item in list_labels:
         inputs.append(input(item))
-
-    os.system("clear")
-    return inputs
-
+    return input
 
 def print_error_message(message):
     """
