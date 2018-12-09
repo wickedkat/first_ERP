@@ -4,6 +4,7 @@
 
 import sys
 import ui  # User Interface
+import input_mod
 # Store module
 from store import store
 # Human Resources module
@@ -21,7 +22,7 @@ from data_analyser import data_analyser
 
 
 def choose():
-    inputs = ui.get_inputs(["Please enter a number: "], "")
+    inputs = input_mod.get_inputs(["Please enter a number: "], "")
     option = inputs[0]
     if option == "1":
         store.start_module()

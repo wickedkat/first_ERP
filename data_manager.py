@@ -10,7 +10,7 @@ def get_table_from_file(file_name):
         file_name (str): name of file to read
 
     Returns:
-         list: List of lists read from a file.
+        list: List of lists read from a file.
     """
     with open(file_name, "r") as file:
         lines = file.readlines()
@@ -27,7 +27,7 @@ def write_table_to_file(file_name, table):
         table (list): list of lists to write to a file
 
     Returns:
-         None
+        None
     """
     with open(file_name, "w") as file:
         for record in table:

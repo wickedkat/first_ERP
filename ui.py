@@ -2,45 +2,62 @@
 #                             PRINTING TABLE FUNCTIONS
 
 # gets lenght of the longest word in column
-def get_max_width_column(table, table_list):
-    max_width = []
-    for column in range (len(table_list)):
-        temp_width = 0
-        for row in range (len(table)):
-            if len(str(table[row][column])) > temp_width:
-                temp_width = len(str(table[row][column]))
-    max_width.append(int(temp_width))
-    return max_width
+max_length_column = []
 
 
-#gets total width of a table, adding max widths of colums + spaces between them
-def get_total_width_table(max_width, table_list):
-    sum_width = len(table_list)*2
-    for i in range (len(max_width)):
-        sum_width += max_width[i]
-    return sum_width
+# define max length of colums in table
+def max_length(table, title_list):
+    max_length_column = []
+    for column in range(len(title_list)):
+        temp = 0
+        for row in range(len(table)):
+            if len(str(table[row][column])) > temp:
+                temp = len(str(table[row][column]))
+                temp = int(temp)
+        max_length_column.append(temp)
+    return max_length_column
 
-# prints separators in the middle part of table
-def print_middle_border(sum_width):
-    print('|', ('-'*(sum_width-3)), '|')
+
+# define added length of table based on column length
+def sum_length_table(max_length_column, title_list):
+    sum_length = len(title_list)*2
+    for i in range(len(max_length_column)):
+        sum_length += max_length_column[i]
+    return sum_length
 
 
-# prints title + separator in every column
-def print_titles_in_colums(title_list, max_width):
-    for j in range(len(title_list)):
-        col = title_list[j]
-        width = max_width[j]
+# prints upper part of table
+def print_top_border(sum_length):
+    print('/', ('-'*(sum_length-3)), '\\')
+
+
+# prints middle part of table
+def print_middle_border(sum_length):
+    print('|', ('-'*(sum_length-3)), '|')
+
+
+# prints bottom part of table
+def print_bottom_border(sum_length):
+    print('\\', ('-'*(sum_length-3)), '/')
+
+
+# prints columns title - each module has diffrent title_list
+def print_columns_title(title_list, max_length_column):
+    for col_i in range(len(title_list)):
+        col = title_list[col_i]
+        width = max_length_column[col_i]
         print('|', col.center(width),  end='')
     print('|')
 
-# prints data and separators to the table
-def print_table_contents(table, max_width, sum_width, title_list):
+
+# prints what is in table - table is diffrent for each module
+def print_items_table(table, max_length_column, sum_length, title_list):
     row_number = 1
     for row in table:
-        print_middle_border(sum_width)
+        print_middle_border(sum_length)
         for col_i in range(len(row)):
             col = row[col_i]
-            width = max_width[col_i]
+            width = max_length_column[col_i]
             if col_i == 0:
                 print('|', str(row_number).center(width),  end='')
             else:
@@ -49,36 +66,26 @@ def print_table_contents(table, max_width, sum_width, title_list):
         print('|')
 
 
+# print table based on tilte list and table from modules
 def print_table(table, title_list):
     """
     Prints table with data.
-
-    Example:
-        /-----------------------------------\
-        |   id   |      title     |  type   |
-        |--------|----------------|---------|
-        |   0    | Counter strike |    fps  |
-        |--------|----------------|---------|
-        |   1    |       fo       |    fps  |
-        \-----------------------------------/
-
     Args:
         table (list): list of lists - table to display
         title_list (list): list containing table headers
-
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
 
-    max_width_column = []
+    max_length_column = []
     temp_table = table.copy()
     temp_table.append(title_list)
-    max_width_column = get_max_width_column(temp_table, title_list)
-    sum_width = get_total_width_table(max_width_column, title_list)
-    print_titles_in_colums(title_list, max_width_column)
-    print_table_contents(table, max_width_column, sum_width, title_list)
-
-
+    max_length_column = max_length(temp_table, title_list)
+    sum_length = sum_length_table(max_length_column, title_list)
+    print_top_border(sum_length)
+    print_columns_title(title_list, max_length_column)
+    print_items_table(table, max_length_column, sum_length, title_list)
+    print_bottom_border(sum_length)
 
 def print_result(result, label):
     """
@@ -95,6 +102,7 @@ def print_result(result, label):
     print ('{}{}'.format (result, label))
 
 
+#prints main menu of every module
 def print_menu(title, list_options, exit_message):
     """
     Displays a menu. Sample output:
@@ -122,32 +130,8 @@ def print_menu(title, list_options, exit_message):
     print(f"     (0) {exit_message}")
 
 
+#gets input from user, matches it with labels and returns as a list
 
-def get_inputs(list_labels, title):
-    """
-    Gets list of inputs from the user.
-    Sample call:
-        get_inputs(["Name","Surname","Age"],"Please provide your personal information")
-    Sample display:
-        Please provide your personal information
-        Name <user_input_1>
-        Surname <user_input_2>
-        Age <user_input_3>
-
-    Args:
-        list_labels (list): labels of inputs
-        title (string): title of the "input section"
-
-    Returns:
-        list: List of data given by the user. Sample return:
-            [<user_input_1>, <user_input_2>, <user_input_3>]
-    """
-    inputs = []
-
-    print(title)
-    for item in list_labels:
-        inputs.append(input(item))
-    return input
 
 def print_error_message(message):
     """
