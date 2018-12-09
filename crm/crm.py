@@ -91,7 +91,7 @@ def start_module():
     """
 
     while True:
-        input_mod.print_menu(title, options, exit_message)
+        ui.print_menu(title, options, exit_message)
         try:
             choose()
         except ValueError:
